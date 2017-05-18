@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<!-- saved from url=(0040)https://www.medialan.de/usecase0001.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Medialan - RTSP, RTP Video Streaming Server, Tutorial, Hello World</title>
+  <meta name="author" content="medialan">
+  <meta name="description" content="RTSP/RTP Streaming Video Server - Tutorial">
+  <meta name="keywords" content="RTP, RTSP, Payload, Streaming Video, MJPEG, Tutorial, C++">
+  
+  <link rel="stylesheet" type="text/css" href="./Medialan - RTSP, RTP Video Streaming Server, Tutorial, Hello World_files/ml.css">
+  <link rel="icon" type="image/jpeg" href="https://www.medialan.de/img/logo.jpg">     <!-- XXX png mit transparenz w�re daf�r besser -->
+</head>
+
+<body>
+
+<div id="MLPage">
+
+  <!-- Medialan Header -->
+  <div id="MLHeaderContainer">
+    <div id="MLBanner">
+        <a href="https://www.medialan.de/index.html">
+            <img src="./Medialan - RTSP, RTP Video Streaming Server, Tutorial, Hello World_files/logo_firma.jpg" alt="MediaLan Logo" width="206" height="77" border="0" style="padding-left:10px; padding-top:2px;">
+        </a>
+    </div>
+    <div id="MLNavi">
+      <ul id="navigation">
+          <li><a href="https://www.medialan.de/company.html">Unternehmen</a></li>
+          <li><span style="font-size:140%;">|</span></li>
+          <li><a href="https://www.medialan.de/services.html">Leistungen</a></li>
+          <li><span style="font-size:140%;">|</span></li>
+          <li><a href="https://www.medialan.de/contact.html">Kontakt</a></li>
+          <li><span style="font-size:140%;">|</span></li>
+          <li><a href="https://www.medialan.de/impressum.html">Impressum</a></li>
+     </ul>
+    </div>
+    <div id="MLOptions">
+      <!-- reserved -->
+    </div>
+  </div>
+
+  <!-- Medialan ColumnHeader -->
+
+  <div id="MLColHeaderContainer">
+    <div id="MLLeftColHeader">
+      <div style="line-height:40px;vertical-align:middle;">
+        <span style="font-size:120%; text-align:center;">OVERVIEW</span>
+      </div>
+    </div>
+    <div id="MLUseCaseColHeader">
+      <span style="margin-left:40px; font-size:120%;">RTSP/RTP Streaming Server Hello World</span>
+    </div>
+  </div>
+
+  <!-- Stop floating -->
+  <div style="clear:both;"></div>
+
+  <!-- MediaLan Content columns -->
+
+  <!-- The wrappers are just necessary to create columns of the same height independently from the content height -->
+  <div id="MLUseCaseWrapper2">
+    <div id="MLUseCaseWrapper1">
+
+      <!-- LEFT CONTENT COLUMN -->
+      <div id="MLUseCaseLeftColContent">
+        <div style="width:90%; position:relative; left: 5%; top: 40px;">
+          <!-- SUMMARY -->
+          <p style="font-size:120%; font-weight:bold;">Summary</p><br>
+          Shows a basic C++ hello world RTP/JPEG streaming server. Discusses the necessary
+          technologies for streaming server development like streaming protocols, payloads
+          and packetization mechanisms. Suited for developers who are searching for a starting
+          point to dive into the RTSP based media streaming world.
+
+          <!-- TOOLS/TECHNOLOGIES -->
+          <p style="font-size:120%; font-weight:bold; margin-top:20px;">Tools/Technolgies</p><br>
+          <p>
+            <b>Programming:</b> C++, Visual Studio 2010, Multi-Threading, Client/Server, Windows<br>
+            <b>Protocols:</b> RTP/RTSP/TCP/UDP<br>
+            <b>RFCs:</b> 2326, 3550, 2435<br>
+          </p>
+
+          <!-- TABLE OF CONTENTS -->
+          <p style="font-size:120%; font-weight:bold;margin-top:20px;">Table of Contents</p><br>
+          <p>
+              <a href="https://www.medialan.de/usecase0001.html#Introduction" class="MLLinkStyle">Introduction</a><br>
+              <a href="https://www.medialan.de/usecase0001.html#Running" class="MLLinkStyle">Running the Hello World RTSP streamer</a><br>
+              <a href="https://www.medialan.de/usecase0001.html#WhatIsRTSP" class="MLLinkStyle">What is RTSP?</a><br>
+              <a href="https://www.medialan.de/usecase0001.html#WhatIsRTP" class="MLLinkStyle">What is RTP?</a><br>
+              <a href="https://www.medialan.de/usecase0001.html#WhatIsPayload" class="MLLinkStyle">What is a payload type?</a><br>
+              <a href="https://www.medialan.de/usecase0001.html#RTSPStreamerArchitecture" class="MLLinkStyle">RTSP streamer simplified architecture</a><br>
+              <a href="https://www.medialan.de/usecase0001.html#RTPPacketization" class="MLLinkStyle">RTP packetization</a><br>
+              <a href="https://www.medialan.de/usecase0001.html#UDP" class="MLLinkStyle">UDP/TCP transport</a><br>
+              <a href="https://www.medialan.de/usecase0001.html#SourceCode" class="MLLinkStyle">Source code</a><br>
+              <a href="https://www.medialan.de/usecase0001.html#Summary" class="MLLinkStyle">Summary</a><br>
+          </p>
+        </div>
+      </div>
+
+      <!-- USE CASE COLUMN -->
+      <div id="MLUseCaseCol">
+
+        <div style="background-color: #F3F2F7; width: 660px; margin:0 auto; font-size: 80%;">
+          <div style="width:90%; position:relative; left: 5%; top: 0px;">
+
+<!-- ***************************************************************************************** -->
+<!-- ***************************************************************************************** -->
+<!-- THE CONTENT -->
+<!-- ***************************************************************************************** -->
+<!-- ***************************************************************************************** -->
+
+
+<a name="Introduction"></a><br><br><br>
+<h1 style="margin-bottom:40px;font-size:180%;font-weight:bold;">
+  A fully functional RTSP/RTP streaming server hello world example in C++ for experimentation with JPEG payloads.
+</h1>
+
+<h1 style="margin-bottom:40px;font-size:150%;font-weight:bold;">Introduction</h1>
+
+Everyone whom ever tried to develop his own media streaming server gets overwhelmed by the
+huge number of different transmission protocols, RFCs and different media codecs. You are buried
+in technology information and thousands of pages of specifications. So it is definitely not an
+easy job to recognize the general architecture of a streaming server and to concentrate on the
+relevant. You have to deal at least with the following technologies to understand how a streaming
+server works:
+
+<ul class="MLulStyle">
+  <li>RTP, RTSP, RTCP, RTP over TCP, UDP, Unicast, Multicast, SDP</li>
+  <li>RTP Payload audio / video formats and codecs like MJPEG, H264, MPEG-2, G.711, PCM</li>
+</ul>
+
+The following tutorial is to provide a highly simplified C++ VS2010 hello world example of a
+streaming server which could provide a base pattern for experimentation and the development of
+more sophisticated solutions. Everything was stripped away which could hide the basic understanding
+of RTP streaming. So there is no advanced error handling implemented. I did not deal with multicasting
+and RTCP or more complex payloads than MJPEG like MPEG-2. Even the simplest implementation which seems
+still to make sense as a tutorial already comprises about 800 lines of code.<br><br>
+
+The tutorial covers the following aspects of a media streaming server:
+
+<ul class="MLulStyle">
+  <li>
+    Multiclient operation of an RTSP/RTP server. Multiple clients can connect to the server (for example VLC).
+  </li>
+  <li>
+    A simplified  RTSP parser which handles the session establishment between an RTSP player client
+    and the server. The parser was partially overtaken and simplified from the Live555 project
+    (<a href="http://www.live555.com/" class="MLLinkStyle">www.live555.com</a>)
+  </li>
+  <li>
+    RTP media streaming with transport over UDP and TCP (RTP over RTSP)
+  </li>
+  <li>
+    A very basic media payload format which is packetized into RTP network packets for streaming.
+    We will just deal here with MJPEG as RTP payload. The streaming server of the tutorial offers
+    two RTP MJPEG streaming channels mjpeg/1 and mjpeg/2. To keep everything as simple as possible
+    the source sample of the tutorial works with synthetic images which are generated in the source code
+    of the project.
+  </li>
+</ul>
+
+<h1 class="MLh1"><a name="Running">Running the hello world RTSP streamer</a></h1>
+
+To get a first impression start the RTSPTestServer application in a console window. After that you
+can start an RTSP player. I recommend VLC for that. To connect VLC to one of the streams which
+the streaming server simulates open the menu "Media" and select "Open network stream ...". In the
+"Open Media" dialog window enter the URL of one of the two available streams. If the streamer and
+VLC reside on the same machine the URL for channel 1 is:
+
+<p align="center">rtsp://127.0.0.1:8554/mjpeg/1</p><br><br>
+
+The 8554 is the RTSP port which the streamer uses to accept connections from clients. After
+pressing the "Play" button the stream should start. You should see an alternating display of a
+red and a green JPEG frame with a frame rate of 25 frames per second. You may open multiple
+instances of VLC and connect them to the streamer. It is possible to open the same channel
+multiple times. For example you see four VLC instances in the following screen shot which are
+connected to the streamer.
+
+<p class="MLImageStyle"><img src="./Medialan - RTSP, RTP Video Streaming Server, Tutorial, Hello World_files/RTSPImg01.jpg" alt="RTSPImg01" border="0" width="514" height="212"></p>
+
+The mjpeg/1 stream runs with an image resolution of 48x32 pixel and the second stream mjpeg/2
+with 64x48 pixel.
+
+<h1 class="MLh1"><a name="WhatIsRTSP">What is RTSP?</a></h1>
+
+RTSP and RTP are Internet protocol specifications which define the different aspects which make
+out a streaming session between a streaming RTSP/RTP server and a player client. There are
+other media streaming protocols in operation for example the big bunch of different streaming
+methods which came up with the new HTML5 standard. We just deal here with RTSP and RTP.<br><br>
+
+RTSP (Real Time Streaming Protocol) is defined in the Internet standard draft RFC 2326.
+Despite of its name RTSP actually does not transport any media like video and audio.
+RTSP is a companion protocol for RTP which is doing the actual work of the media transport.
+RTSP covers all aspects for the control of an RTP streaming session. A player connects to the
+RTSP connection handler of a streaming server and exchanges RTSP requests with the server.
+These requests and their responses are defined in RFC 2326. For example the RTSP requests
+are used to
+
+<ul class="MLulStyle">
+  <li>select the streams which the client would like to play,</li>
+  <li>query the format of the stream (codecs) and the transport method (for example UDP or TCP based),</li>
+  <li>start and stop a streaming session</li>
+</ul>
+
+An RTSP/RTP server starts a stream after some requests from the client when the client
+sends an RTSP PLAY request. To handle RTSP requests from the client a streaming server must
+implement an RTSP parser to interpret the client messages. A simplified RTSP parser is
+implemented in the Unit "RTSPSession.cpp" of the streamer implementation.<br><br>
+
+I will not discuss in detail the RTSP request / response communication here. The internet
+and the RFC 2326 offer a huge amount of information to that and the possible pitfalls
+for the implementation of a parser module.
+
+<h1 class="MLh1"><a name="WhatIsRTP">What is RTP?</a></h1>
+
+RTP (Real Time Protocol) is the actual media transport protocol. As any internet
+standard it is well defined in the RFC 3550. That RFC describes the packetization process
+of media samples into RTP packets. A media stream consists of a series of RTP packets
+which are transmitted from the streamer to the client. The RFC 3550 (and other companion
+RFCs for individual payload types) describes the rules how media samples are packetized. For
+example there are rules how an image of a video stream must be fragmented into multiple small
+RTP packets if the image data is bigger as the payload data size which may be put into one
+RTP packet.<br><br>
+
+Each individual payload type has its own set of rules how that RTP packetization takes place.
+RTP itself is a generic transport protocol and independent from the payload type it transports.<br><br>
+
+Beside the payload packaging the RTP standard describes different transport methods. Basically
+we have two different transport methods for RTP packets. RTP over UDP uses UDP as low level
+transport protocol. UDP is a lightweight protocol and does not waste much bandwidth for
+control data and flow control. UDP does not guarantee that a transmitted packet arrives
+correctly. That leads to image errors (artifacts) or audio drop outs if the network
+conditions are bad. For media transports that fact is often accepted in favor of the
+simplicity of the UDP transport. A big disadvantage of UDP is the fact that it is
+often not possible to transmit it over heterogeneous networks like the internet because
+of firewalls and router limitations. UDP transport would be the technological base for
+multicast streaming. I will not discuss multicast here and my personal opinion of Multicast
+is that it is a dead technology path with applications just for quite special environments.
+The streamer in the tutorial just supports Unicast connections between a client and the server
+even in the case of UDP transport. That means each client (VLC player) has its individual stream
+and may control it without disturbing other clients which are connected to the streamer.<br><br>
+
+RTP may be transmitted as well over TCP. If that transport mode is selected by the client
+in the RTSP SETUP request the streamer sends the RTP packets over the TCP connection which is
+already established for the RTSP communication. In that case there are 2 logical transports on
+the same TCP connection. TCP transport has some overhead in the protocol compared with UDP.
+But it has significant advantages over the UDP transport which counterbalance the disadvantages
+by far. TCP is a reliable transport protocol and guarantees that the data arrives at the client.
+In heterogeneous networks TCP is often the only transport which will work. Despite the commonly
+hold discussion in the Internet that UDP is recommended for streaming transport the author prefers
+TCP based transport and made the experience that all disadvantages which are normally ascribed to
+TCP may be overcome with a good implementation without loosing its advantages over UDP.
+
+<p class="MLImageStyle"><img src="./Medialan - RTSP, RTP Video Streaming Server, Tutorial, Hello World_files/RTSPImg02.jpg" alt="" border="0" width="358" height="306"></p>
+
+Picture 2 shows the simplified communication channels which are established for UDP and
+TCP transport. TCP just uses one channel for both RTSP (control) and RTP (media) whereas UDP
+always establishes at least 2 channels (if we would discuss RTCP it would become even more
+complicated) which makes the implementation and the decision whether a network is suited for
+that transport type or not much harder.<br><br>
+
+VLC is able to handle both RTP transport types. To switch between UDP and TCP based transport
+open the dialog "Preferences" in the "Tools" menu. In the dials "Input &amp; codecs" you find the
+option "Live555 stream transport" and the two values "HTTP (default)" and RTP over "RTSP (TCP)".
+The "HTTP" option actually means UDP - it is not clear why it is named incorrectly as HTTP.
+You can check which transport type is really used for example by sniffing the communication
+with Wireshark.
+
+<p class="MLImageStyle"><img src="./Medialan - RTSP, RTP Video Streaming Server, Tutorial, Hello World_files/RTSPImg03.jpg" alt="" border="0" width="414" height="318"></p>
+
+<h1 class="MLh1"><a name="WhatIsPayload">What is a Payload type</a></h1>
+
+RTP as transport protocol is independent from the type of media data which it transmits.
+RTP may transmit a huge variety of different video and audio formats. Some audio formats
+which may be transported by RTP are G.711, GSM or PCM. Video formats which may be transported
+are MPV, H261 or H264. There are much more. Each audio or video format which may be put into
+RTP packets is called a payload. Normally audio and video data are transmitted in compressed
+formats. That's why the payload type represents normally as well either an audio or a video
+compression format or a codec. For each format there are different rules defined how to put
+the data into RTP packets. We demonstrate here just a very simple MJPEG payload RTP
+packetization. The rules which must be applied to put MJPEG images into RTP packets are described
+in RFC 2435. Even a simple format like JPEG has lots of different characteristics or profiles.
+The implementation of a general RTP packetizer just for JPEG may already be a challenge. That's
+why the RTP payload packetizers normally just consider a limited subset of the degrees of freedom
+which a compression standard or the belonging payload RFC offer.
+
+<h1 class="MLh1"><a name="RTSPStreamerArchitecture">RTSP streamer simplified architecture</a></h1>
+
+The following picture shows the architecture of the tutorial sample of the RTSPTestServer.
+
+<p class="MLImageStyle"><img src="./Medialan - RTSP, RTP Video Streaming Server, Tutorial, Hello World_files/RTSPImg04.jpg" alt="" border="0" width="582" height="602"></p>
+
+The test server runs two different thread types. The master thread (main program thread) waits
+for incoming client connections on the master TCP socket of the streamer which resides on port
+8554. For each incoming client the master thread creates a session thread which handles the RTSP
+and RTP communications individually for each client without disturbing the other clients. The
+number of session threads and henceforth RTP channels is not limited.<br><br>
+
+A session thread handles two event types. One event signals incoming data on the RTSP TCP
+socket of the connected client. That data gets interpreted by the RTSP request parser. The
+parser checks the different request types and their parameters and creates the belonging responses.
+
+<ul class="MLulStyle">
+  <li>
+    In the DESCRIBE request the streamer answers with the payload type which it supports for
+    the requested channel. In the case of MJPEG that is the payload type 26.
+  </li>
+  <li>In the SETUP request the streamer and the client negotiate the RTP transport method (UDP or TCP)</li>
+  <li>Finally the streaming gets started when the client sends a PLAY request.</li>
+  <li>The TEARDOWN request stops the streaming</li>
+</ul>
+
+The second event which controls the session thread is an event which signals that a new image
+is available for streaming. Our server simulates a video source with a  frame rate of 25 frames
+per second. For that a simple periodical timer is used. Each timer event alternates between two
+JPEG frames. The timer event is just handled if the session is in PLAY state that means the
+client has sent an RTSP PLAY request.<br><br>
+
+For a more realistic extension of the streamer the image production mechanism is the part
+of the sample which must be modified first. For example one could read JPEG images from files
+driven by a timer or connect to a network camera which produces a trigger event each time when a
+new JPEG image for RTP streaming is available. Of course for such an extension the RTP packetization
+must be extended as well to support the RFC 2435 for the characteristics of the JPEG images which are used.
+
+<h1 class="MLh1"><a name="RTPPacketization">RTP packetization</a></h1>
+
+The RTP packetization for our very basic sample is implemented in the CStreamer class. That class
+is able to handle both - packetization for UDP and for TCP transport. To not obscure the basic
+working principles we simulate 2 very simple single color JPEG images. These images are so small
+that they fit into just one RTP packet which has normally a size of about 1500 bytes in ethernet
+environments. For realistic purposes the images are normally much bigger than one RTP packet may transport.
+In that case the image must be split into multiple fragments. Each fragment is  wrapped into an RTP packet
+which consists of RTP header  information and the actual JPEG fragment. The RFC 2435 describes the details
+for that.<br><br>
+
+The 2 images which we simulate for each stream are implemented as fixed arrays in the JPEGSamples.cpp unit.
+That unit contains 4 JPEG images - 2 for each of our streams. The images just contain the so called scan
+data. That is the compressed image data without any JPEG headers.<br><br>
+
+Our very simple packetization mechanism is implemented in the procedure SendRtpPacket. That procedure
+sets the RTP specific header data of an RTP packet and sends it to the client dependent on the
+transport mechanism which was negotiated with the client during the RTSP SETUP request/response.<br><br>
+
+The RTP header of an RTP packet has a length of 12 bytes. Its detailed structure is defined in RFC 3350.
+The RTP header contains data for:
+
+<ul class="MLulStyle">
+  <li>the RTP protocol version</li>
+  <li>a packet (sequence) counter which may be used by the client to detect packet losses</li>
+  <li>a timestamp which controls the timing of the replay in the client</li>
+  <li>an unique identifier for the RTP stream</li>
+</ul>
+
+The RTP header is followed by an 8 byte JPEG specific header which is described in RFC 2435. It contains
+meta data which describes parameters of the image like:
+
+<ul class="MLulStyle">
+  <li>width and height</li>
+  <li>quality</li>
+  <li>color format</li>
+  <li>fragment offset (the position of the scan data if the image should be bigger as the capacity of the  RTP packaged)</li>
+</ul>
+
+More details about the structure of the simulated JPEG RTP packets can be found in the source code of the example.
+
+<h1 class="MLh1"><a name="UDP">UDP/TCP transport</a></h1>
+
+The RTP packets which are created by the sample code can be transmitted directly by using UDP
+as transport mechanism.<br><br>
+
+Sending RTP over TCP requires some additional modifications of the RTP packet. Because it is sent
+on the same logical TCP connection as the RTSP communication the client must be able to differentiate
+between RTSP and RTP packets. That's why the SendRtpPacket procedure inserts an additional RTP over
+RTSP header into the packet. The length of that "demultiplexing" header is 4 bytes.  The magic
+number $ indicates for the client that the packet does not contain RTSP data. This is followed by
+a channel number which identifies whether we transmit an RTP or an RTCP package.
+
+<h1 class="MLh1"><a name="SourceCode">Source code</a></h1>
+
+The implementation of the streamer hello world project was done in C++ and Visual Studio 2010.
+The C++ sources, the belonging header files and the complete Visual Studio 2010 project may be
+downloaded as ZIP here:
+
+<p style="margin-top:20px; margin-bottom:20px;"><a href="https://www.medialan.de/uc0001/Project/Project.zip" class="MLLinkStyle">VS2010 Project</a></p>
+
+The following link provides the binary of the server:
+
+<p style="margin-top:20px; margin-bottom:20px;"><a href="https://www.medialan.de/uc0001/Bin/RTSPTestServerBin.zip" class="MLLinkStyle">RTSPTestServer binaries</a></p>
+
+
+<h1 class="MLh1"><a name="Summary">Summary</a></h1>
+
+This introductory tutorial was to demonstrate some basic concepts on how to implement an RTSP/RTP
+based streaming media server. A "full" featured implementation is really a challenging project. One gets
+quite quickly lost into a jungle of technologies and terminologies which hide the basic working principles.
+That's why I stripped off everything possible which prevents one from seeing the true stuff.<br><br>
+
+Of course it is not always necessary to have a "fully" featured streamer with all imaginable payload
+types and transport mechanisms. If just one or a small number of payload types is required or if
+multicast is not necessary or possible because of a limited number of clients and sufficient network
+bandwidth then the challenge for an implementation goes down drastically. Furthermore it is quite
+different for an implementation whether you must consider live streaming sources or file based video
+on demand streaming. As always the implementation costs  depend on the application scenario. For a simple
+point to point RTP media transport the sample in the tutorial could already be good starting point.
+
+<br><br><br><br><br><br>
+
+<!-- ***************************************************************************************** -->
+<!-- ***************************************************************************************** -->
+<!-- END OF CONTENT -->
+<!-- ***************************************************************************************** -->
+<!-- ***************************************************************************************** -->
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- just some space for the footer -->
+  <div style="clear:both;"></div>
+  <div style="margin-top:40px;"></div>
+
+  <!-- MediaLan Footer -->
+  <div id="MLFooter">
+      Copyright © 2000-2016 by medialan GbR. Design by <a href="http://www.marcelstobinski.com/" class="MLLinkStyle">www.marcelstobinski.com</a>.   All rights reserved.
+  </div>
+
+</div>
+
+
+</body></html>

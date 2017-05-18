@@ -1,0 +1,346 @@
+    body {
+      font: 100.01% Verdana, Arial, Helvetica, sans-serif;
+      margin-top: 120px;
+      background-color: gray;
+    }
+
+    * {
+      margin:0;
+      padding:0;
+    }
+
+    #MLPage {
+      width: 960px;
+      margin: 0 auto;                                    /* to center the content in the 960px */
+    }
+
+    h1.MLh1 {
+      margin-bottom:40px; 
+      margin-top: 40px; 
+      font-size:150%; 
+      font-weight:bold;
+    }
+
+    h2.MLh2 {
+      margin-bottom:20px; 
+      margin-top:20px; 
+      font-size:120%; 
+      font-weight:bold;
+    }
+
+    p.MLImageStyle {
+      text-align:center; 
+      margin-top:20px; 
+      margin-bottom:20px;
+    }
+
+    .MLulStyle {
+      padding-left:40px; 
+      margin-top:20px; 
+      margin-bottom:20px;    
+    }
+
+
+    #MLFooter {
+      clear: both;
+      background-color:#262932;
+      color: #F3F2F7;
+      text-align: center;
+      font-size: 80%;
+      height: 60px;
+      line-height:60px;                                  /* to center the text vertically */
+      vertical-align:middle;                             /* to center the text vertically */
+    }
+
+    .tdl {
+      background-color:#9196A9;
+      color: #F3F2F7;
+      vertical-align: top;
+      width: 60px;
+      padding-left: 5px;
+    }
+
+    .tdr {
+      vertical-align: top;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+    .MLLinkStyle {
+      text-decoration: none; 
+      color: #4893E1;
+    }
+
+    /* ===================================================================== */
+    /* HEADER DEFINITIONS including navigation bar */
+    /* ===================================================================== */
+    #MLHeaderContainer {
+      top: 0px;
+      position: fixed;
+      width: 960px;
+      z-index: 1;
+      background-color:lightblue;
+    }
+
+    #MLBanner {
+      float: left;
+      width:240px;
+      height: 80px;
+      font-size: 60%;
+      background-color: #FFFFFF;
+    }
+
+    #MLNavi {
+      float: left;
+      width: 500px;
+      height: 80px;
+      background-color: #F4F4F4;
+
+      color: #828282;
+      font-weight: semibold;
+      font-size: 90%;
+      bottom: 0;
+      margin-bottom: 0;
+      padding-left:20px;
+      line-height:60px;                                  /* to center the text vertically */
+      vertical-align:middle;                             /* to center the text vertically */
+    }
+
+    #MLOptions {
+      float: left;
+      width:200px;
+      height: 80px;
+      background-color: #FFFFFF;
+    }
+
+    #MLLogo {
+      float: left;
+      width: 79px;
+      background-color: #FFFFFF;
+      margin-left:5px;
+    }
+
+    #MLCompanyName {
+      float: left;
+      width: 154px;
+      background-color: #FFFFFF;
+    }
+
+    /* selector selects all ul tags within the container with the MLNavi ID */
+    #MLNavi ul {
+      padding-left:0;
+      margin-right: 0;
+      position-bottom: 0;
+    }
+
+    /* selector selects all li tags within the navigation list */
+    #navigation li {
+      display: inline;
+      list-style: none;
+      padding-right: 5px;
+    }
+
+    /* selector selects all anchor tags within the navivation list */
+    #navigation a
+    {
+      color: #828282;
+      text-decoration: none;
+    }
+
+    /* selector selects all anchor tags within the navigation list where the mouse is hovering over */
+    #navigation a:hover
+    {
+      background-color: white;
+    }
+
+    /* selector selects all anchor tags within the navigation list which are active
+    #navigation a:active
+    {
+      background-color: white;
+    }
+
+    /* ===================================================================== */
+    /* COLUMN HEADER DEFINTIONS */
+    /* ===================================================================== */
+    #MLColHeaderContainer {
+      width: 960px;
+      background-color:lightblue;
+    }
+
+    /* COL HEADER 1 LEFT */
+    #MLLeftColHeader {
+      float: left;
+      height: 40px;
+      width:240px;
+      background-color: #4893E1;
+      color: #F3F2F7;
+      text-align: center;
+      font-size: 90%;
+    }
+
+    /* COL HEADER 2 CENTER */
+    #MLCenterColHeader {
+      float: left;
+      height: 40px;
+      width: 520px;
+      background-color: #262932;
+      color: #CACBC8;
+
+      line-height:40px;                                  /* to center the text vertically */
+      vertical-align:middle;                             /* to center the text vertically */
+    }
+
+    /* COL HEADER 3 CENTER */
+    #MLRightColHeader {
+      float: right;
+      height: 40px;
+      width:200px;
+      background-color: #4893E1;
+      color: #F3F2F7;
+
+      line-height:40px;                                  /* to center the text vertically */
+      vertical-align:middle;                             /* to center the text vertically */
+    }
+
+    /* COL HEADER 2 RIGHT FOR 2 COLUMNS USE CASE PAGES */
+    #MLUseCaseColHeader {
+      float: left;
+      height: 40px;
+      width: 720px;
+      background-color: #262932;
+      color: #CACBC8;
+
+      line-height:40px;                                  /* to center the text vertically */
+      vertical-align:middle;                             /* to center the text vertically */
+    }
+
+    /* ============================================================= */
+    /* CONTENT COLUMNS */
+    /* Modell for 3 columns of equal height based on the tallest column. */
+    /* The method is based on the properties of the box modell for floating containers as described in: */
+    /* http://matthewjamestaylor.com/blog/equal-height-columns-cross-browser-css-no-hacks */
+    /* ============================================================= */
+    #MLColWrapper3 {
+      float:left;
+      width:100%;
+      background-color: #F3F2F7;
+      overflow:hidden;
+      position:relative;
+    }
+
+    #MLColWrapper2 {
+      float:left;
+      width:100%;
+      background-color: #A7ADC3;
+      position:relative;
+      right:20.83%;
+    }
+
+    #MLColWrapper1 {
+      float:left;
+      width:100%;
+      background-color: #F3F2F7;
+      position:relative;
+      right:54.17%;
+    }
+
+    #MLLeftColContent {
+      float: left;
+      width:25%;
+      font-size: 80%;
+      position:relative;
+      left:75%;
+    }
+
+    #MLCenterColContent {
+      float:left;
+      width:54.17%;
+      position:relative;
+      left:75%;
+    }
+
+    #MLRightColContent {
+      float:left;
+      width:20.83%;
+      position:relative;
+      left:75%;
+      font-size: 70%;
+    }
+
+
+    /* ============================================================= */
+    /* USE CASE CONTENT COLUMNS */
+    /* Modell for 2 columns of equal height based on the tallest column. */
+    /* modified 3 columns model from above for the use case pages */
+    /* ============================================================= */
+
+    #MLUseCaseWrapper2 {
+      float:left;
+      width:100%;
+      background-color: #A7ADC3;
+      overflow:hidden;
+      position:relative;
+    }
+
+    #MLUseCaseWrapper1 {
+      float:left;
+      width:100%;
+      background-color: #F3F2F7;
+      position:relative;
+      right:75%;
+    }
+
+    #MLUseCaseLeftColContent {
+      float: left;
+      width:25%;
+      font-size: 80%;
+      position:relative;
+      left:75%;
+    }
+
+    #MLUseCaseCol {
+      float:left;
+      width:75%;
+      position:relative;
+      left:75%;
+    }
+
+    /* ============================================================= */
+    /* CENTER CONTENT STYLES */
+    /* ============================================================= */
+    .MLCenterContentContainer {
+      background-color: #F3F2F7;
+      width: 460px;
+      height:180px;
+      margin:0 auto;                                     /* to center the container within the outer container */
+    }
+
+    .MLCenterContentCaption {
+      width: 140px;
+      background-color: #4893E1;
+      color: #CBDCF8;
+      float:left; height:40px;
+      margin-left:10px;
+      margin-top:10px;
+      text-align:center;
+      line-height:40px;                                  /* to center the text vertically */
+      vertical-align:middle;                             /* to center the text vertically */
+      font-size: 70%
+    }
+
+    .MLCenterContentBox {
+      width: 140px;
+      background-color: grey;
+      float:left;
+      height:120px;
+      margin-left:10px;
+    }
+
+    #MLUseCases {
+      width: 520px;
+      background-color: #262932;
+      color: #CACBC8;
+      height: 40px;
+      line-height:40px;                                  /* to center the text vertically */
+      vertical-align:middle;                             /* to center the text vertically */
+    }
